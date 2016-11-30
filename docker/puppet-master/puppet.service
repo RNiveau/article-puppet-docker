@@ -1,0 +1,9 @@
+[Unit]
+Description=Puppet master
+
+[Service]
+ExecStart=/opt/puppet-master.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
