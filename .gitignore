@@ -1,4 +1,4 @@
-opt/
+build-rpm/
 js/node_modules/
 .idea/
 repo/repodata/

@@ -1,0 +1,12 @@
+[Unit]
+Description=Xebia app
+
+[Service]
+ExecStart=/usr/bin/node /opt/app/server.js
+Restart=always
+User=nobody
+Group=nobody
+Environment=PATH=/usr/bin:/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
