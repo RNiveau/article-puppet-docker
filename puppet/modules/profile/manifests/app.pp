@@ -12,7 +12,7 @@ class profile::app {
   }
 
   yumrepo { "xebia-repo":
-    baseurl  => 'http://repo.docker',
+    baseurl  => 'http://repo',
     descr    => "xebia repo",
     enabled  => 1,
     gpgcheck => 0

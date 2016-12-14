@@ -1,16 +1,8 @@
 version: '2'
-networks:
-  puppet:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.26.0.0/16
-          ip_range: 172.26.5.0/24
-          gateway: 172.26.5.254
 services:
   master:
     image: xebia/puppet-master
-    hostname: pm.docker
+    hostname: master.docker
     ports:
       - "8140:8140"
     cap_add:
@@ -20,29 +12,17 @@ services:
       - ./puppet/hieradata:/etc/puppet/hieradata
       - ./site.pp:/etc/puppet/manifests/site.pp
       - ./hiera.yaml:/etc/puppet/hiera.yaml
-    networks:
-      puppet:
-        ipv4_address: 172.26.5.1
-    extra_hosts:
-      - "repo.docker:172.26.5.2"
 
   repo:
     image: xebia/puppet-agent
     hostname: repo.docker
     ports:
       - "80"
+    links:
+      - master
     depends_on:
       - master
     cap_add:
       - SYS_ADMIN
     volumes:
       - ./repo:/opt/repo/
-    networks:
-      puppet:
-        ipv4_address: 172.26.5.2
-    environment:
-      - FACTER_yum_enable=false
-      - FACTER_env=dev
-    extra_hosts:
-      - "pm.docker:172.26.5.1"
-      - "repo.docker:172.26.5.2"
