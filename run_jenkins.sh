@@ -10,7 +10,7 @@ for env in dev prod
 do
     echo "Launch container"
     docker run -h app1.docker.$env -d --cap-add=SYS_ADMIN --name puppet_test_1 -e FACTER_environment="${env}" --link articlepuppetdocker_master_1 --link articlepuppetdocker_repo_1 --network articlepuppetdocker_default xebia/puppet-agent
-    echo "Exec puppet"
+    echo "Execute puppet"
     docker exec puppet_test_1 puppet agent -t
     RETURN=$?
     if [ $RETURN -ne 2 ] && [ $RETURN -ne 0 ]
